@@ -9,12 +9,13 @@ public static class SeedData
         if (context.Set<User>().Any())
             return;
 
-        context.Set<User>().Add(new User
+        var user = new User
         {
             Username = "admin",
             PasswordHash = BCrypt.Net.BCrypt.HashPassword("admin123")
-        });
+        };
 
+        context.Set<User>().Add(user);
         context.SaveChanges();
     }
 }
