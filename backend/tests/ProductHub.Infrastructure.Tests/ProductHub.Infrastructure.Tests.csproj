@@ -23,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\ProductHub.Api\ProductHub.Api.csproj" />
     <ProjectReference Include="..\..\src\ProductHub.Infrastructure\ProductHub.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\ProductHub.Application\ProductHub.Application.csproj" />
     <ProjectReference Include="..\..\src\ProductHub.Domain\ProductHub.Domain.csproj" />
