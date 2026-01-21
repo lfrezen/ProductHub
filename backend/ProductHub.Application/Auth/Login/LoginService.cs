@@ -1,17 +1,11 @@
 namespace ProductHub.Application.Auth.Login;
 
-public class LoginService
+public class LoginService(
+    IUserRepository userRepository,
+    IPasswordHasher passwordHasher)
 {
-    private readonly IUserRepository _userRepository;
-    private readonly IPasswordHasher _passwordHasher;
-
-    public LoginService(
-        IUserRepository userRepository,
-        IPasswordHasher passwordHasher)
-    {
-        _userRepository = userRepository;
-        _passwordHasher = passwordHasher;
-    }
+    private readonly IUserRepository _userRepository = userRepository;
+    private readonly IPasswordHasher _passwordHasher = passwordHasher;
 
     public async Task<User> AuthenticateAsync(LoginCommand command)
     {

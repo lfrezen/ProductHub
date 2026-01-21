@@ -4,14 +4,9 @@ using ProductHub.Infrastructure.Data;
 
 namespace ProductHub.Infrastructure.Auth;
 
-public class UserRepository : IUserRepository
+public class UserRepository(ProductHubDbContext context) : IUserRepository
 {
-    private readonly ProductHubDbContext _context;
-
-    public UserRepository(ProductHubDbContext context)
-    {
-        _context = context;
-    }
+    private readonly ProductHubDbContext _context = context;
 
     public Task<User?> GetByUsernameAsync(string username)
     {
