@@ -11,13 +11,14 @@ public class GetProductByIdService
         _productRepository = productRepository;
     }
 
-    public async Task<ProductDetailsDto> ExecuteAsync(
+    public async Task<ProductDetailsDto?> ExecuteAsync(
         GetProductByIdQuery query,
         CancellationToken cancellationToken)
     {
-        var product = await _productRepository
-            .GetByIdAsync(query.Id, cancellationToken)
-            ?? throw new InvalidOperationException("Product not found.");
+        var product = await _productRepository.GetByIdAsync(query.Id, cancellationToken);
+
+        if (product == null)
+            throw new KeyNotFoundException($"Product with ID {query.Id} not found");
 
         return new ProductDetailsDto(
             product.Id,
@@ -25,7 +26,6 @@ public class GetProductByIdService
             product.Price,
             product.Quantity,
             product.IsOutOfStock,
-            product.LastSaleDate
-        );
+            product.LastSaleDate);
     }
 }

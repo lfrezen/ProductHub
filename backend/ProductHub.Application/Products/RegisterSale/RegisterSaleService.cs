@@ -5,30 +5,31 @@ namespace ProductHub.Application.Products.RegisterSale;
 
 public class RegisterSaleService
 {
-  private readonly IProductRepository _productRepository;
-  private readonly ISaleRepository _saleRepository;
+    private readonly IProductRepository _productRepository;
+    private readonly ISaleRepository _saleRepository;
 
-  public RegisterSaleService(
-      IProductRepository productRepository,
-      ISaleRepository saleRepository)
-  {
-    _productRepository = productRepository;
-    _saleRepository = saleRepository;
-  }
+    public RegisterSaleService(
+        IProductRepository productRepository,
+        ISaleRepository saleRepository)
+    {
+        _productRepository = productRepository;
+        _saleRepository = saleRepository;
+    }
 
-  public async Task ExecuteAsync(
-      RegisterSaleCommand command,
-      CancellationToken cancellationToken)
-  {
-    var product = await _productRepository
-        .GetByIdAsync(command.ProductId, cancellationToken)
-        ?? throw new InvalidOperationException("Product not found.");
+    public async Task ExecuteAsync(
+        RegisterSaleCommand command,
+        CancellationToken cancellationToken)
+    {
+        var product = await _productRepository.GetByIdAsync(command.ProductId, cancellationToken);
 
-    product.RegisterSale(command.Quantity);
+        if (product == null)
+            throw new KeyNotFoundException($"Product with ID {command.ProductId} not found");
 
-    var sale = new Sale(command.ProductId, command.Quantity);
+        product.RegisterSale(command.Quantity);
 
-    await _saleRepository.AddAsync(sale, cancellationToken);
-    await _productRepository.UpdateAsync(product, cancellationToken);
-  }
+        var sale = new Sale(command.ProductId, command.Quantity);
+
+        await _productRepository.UpdateAsync(product, cancellationToken);
+        await _saleRepository.AddAsync(sale, cancellationToken);
+    }
 }

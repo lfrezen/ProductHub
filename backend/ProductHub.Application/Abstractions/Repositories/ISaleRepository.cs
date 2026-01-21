@@ -4,5 +4,5 @@ namespace ProductHub.Application.Abstractions.Repositories;
 
 public interface ISaleRepository
 {
-  Task AddAsync(Sale sale, CancellationToken cancellationToken);
+    Task AddAsync(Sale sale, CancellationToken cancellationToken);
 }

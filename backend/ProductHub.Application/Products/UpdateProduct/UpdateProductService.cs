@@ -1,9 +1,8 @@
 ﻿using ProductHub.Application.Abstractions.Repositories;
-using ProductHub.Domain.Products;
 
 namespace ProductHub.Application.Products.UpdateProduct;
 
-public sealed class UpdateProductService
+public class UpdateProductService
 {
     private readonly IProductRepository _productRepository;
 
@@ -12,10 +11,14 @@ public sealed class UpdateProductService
         _productRepository = productRepository;
     }
 
-    public async Task ExecuteAsync(UpdateProductCommand command, CancellationToken cancellationToken)
+    public async Task ExecuteAsync(
+        UpdateProductCommand command,
+        CancellationToken cancellationToken)
     {
-        var product = await _productRepository.GetByIdAsync(command.Id, cancellationToken)
-            ?? throw new InvalidOperationException("Product not found.");
+        var product = await _productRepository.GetByIdAsync(command.Id, cancellationToken);
+
+        if (product == null)
+            throw new KeyNotFoundException($"Product with ID {command.Id} not found");
 
         product.Update(command.Name, command.Price, command.Quantity);
 

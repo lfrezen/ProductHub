@@ -2,17 +2,24 @@
 
 namespace ProductHub.Application.Products.DeleteProduct;
 
-public class DeleteProductService(IProductRepository repository)
+public class DeleteProductService
 {
-    private readonly IProductRepository _repository = repository;
+    private readonly IProductRepository _productRepository;
+
+    public DeleteProductService(IProductRepository productRepository)
+    {
+        _productRepository = productRepository;
+    }
 
     public async Task ExecuteAsync(
         DeleteProductCommand command,
         CancellationToken cancellationToken)
     {
-        var product = await _repository.GetByIdAsync(command.Id, cancellationToken)
-            ?? throw new InvalidOperationException("Product not found.");
+        var product = await _productRepository.GetByIdAsync(command.Id, cancellationToken);
 
-        await _repository.DeleteAsync(product, cancellationToken);
+        if (product == null)
+            throw new KeyNotFoundException($"Product with ID {command.Id} not found");
+
+        await _productRepository.DeleteAsync(product, cancellationToken);
     }
 }

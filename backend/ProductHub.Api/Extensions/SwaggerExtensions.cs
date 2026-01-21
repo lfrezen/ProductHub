@@ -15,7 +15,7 @@ public static class SwaggerExtensions
                 Scheme = "bearer",
                 BearerFormat = "JWT",
                 In = ParameterLocation.Header,
-                Description = "Informe o token JWT no formato: Bearer {seu_token}"
+                Description = "Informe o token JWT no formato: {seu_token}"
             });
 
             options.AddSecurityRequirement(new OpenApiSecurityRequirement
