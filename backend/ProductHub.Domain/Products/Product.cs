@@ -1,4 +1,5 @@
 using ProductHub.Domain.Common;
+using ProductHub.Domain.Sales;
 
 namespace ProductHub.Domain.Products;
 
@@ -10,9 +11,22 @@ public class Product : BaseEntity
     public bool IsOutOfStock { get; private set; }
     public DateTime? LastSaleDate { get; private set; }
 
+    private readonly List<Sale> _sales = [];
+    public IReadOnlyCollection<Sale> Sales => _sales;
+
     private Product() { }
 
     public Product(string name, decimal price, int quantity)
+    {
+        Validate(name, price, quantity);
+
+        Name = name;
+        Price = price;
+        Quantity = quantity;
+        IsOutOfStock = quantity <= 0;
+    }
+
+    public void Update(string name, decimal price, int quantity)
     {
         Validate(name, price, quantity);
 

@@ -6,19 +6,20 @@ namespace ProductHub.Infrastructure.Data.Mappings;
 
 public class SaleMap : IEntityTypeConfiguration<Sale>
 {
-  public void Configure(EntityTypeBuilder<Sale> builder)
-  {
-    builder.ToTable("Sales");
+    public void Configure(EntityTypeBuilder<Sale> builder)
+    {
+        builder.ToTable("Sales");
 
-    builder.HasKey(s => s.Id);
+        builder.HasKey(s => s.Id);
 
-    builder.Property(s => s.ProductId)
-        .IsRequired();
+        builder.Property(s => s.Quantity)
+            .IsRequired();
 
-    builder.Property(s => s.Quantity)
-        .IsRequired();
+        builder.Property(s => s.SaleDate)
+            .IsRequired();
 
-    builder.Property(s => s.SaleDate)
-        .IsRequired();
-  }
+        builder.HasOne(s => s.Product)
+            .WithMany(p => p.Sales)
+            .HasForeignKey(s => s.ProductId);
+    }
 }

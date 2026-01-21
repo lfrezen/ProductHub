@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using ProductHub.Api.Auth;
 using ProductHub.Application.Auth.Login;
 
+namespace ProductHub.Api.Controllers;
+
 [ApiController]
 [Route("api/auth")]
 public class AuthController : ControllerBase
