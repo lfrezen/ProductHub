@@ -1,59 +1,63 @@
-# Frontend
+# ProductHub - Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.19.
+Sistema de gerenciamento de produtos desenvolvido em Angular.
 
-## Development server
+## 🚀 Tecnologias
 
-To start a local development server, run:
+- Angular 19.2.0
+- TypeScript 5.7
+- Bootstrap 5.3.8
+- RxJS 7.8
+- JWT Authentication
+
+## ✨ Features do Angular 19 Utilizadas
+
+- ✅ **Standalone Components** - Sem necessidade de NgModules
+- ✅ **Control Flow Syntax** - `@if`, `@for`, `@switch`
+- ✅ **Functional Guards** - Guards como funções puras
+- ✅ **Functional Interceptors** - Interceptors funcionais
+
+## 📋 Funcionalidades
+
+- ✅ Autenticação com JWT
+- ✅ CRUD completo de produtos
+- ✅ Registro de vendas
+- ✅ Atualização de estoque em tempo real
+- ✅ Interface responsiva
+- ✅ Validação de formulários
+- ✅ Tratamento de erros
+- ✅ Loading states
+- ✅ Optimistic UI updates
+
+## 🛠️ Como Executar
 
 ```bash
+# Instalar dependências
+npm install
+
+# Executar em desenvolvimento
 ng serve
+
+# Build para produção
+ng build --configuration production
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## 🌍 Configuração de Ambiente
 
-## Code scaffolding
+Edite `src/environments/environment.development.ts`:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: "https://localhost:7103/api",
+};
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🏗️ Arquitetura
 
-```bash
-ng generate --help
 ```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
+src/app/
+├── core/          # Serviços singleton, guards, interceptors
+├── features/      # Funcionalidades por módulo
+└── shared/        # Componentes reutilizáveis
 ```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
