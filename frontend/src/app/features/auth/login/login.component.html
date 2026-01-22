@@ -1,0 +1,60 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="text-center mb-4">
+      <i class="bi bi-box-seam text-primary" style="font-size: 3rem;"></i>
+      <h2 class="mt-3">ProductHub</h2>
+      <p class="text-muted">Gerenciamento de Produtos</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+
+      @if (errorMessage) {
+      <div class="alert alert-danger" role="alert">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        {{ errorMessage }}
+      </div>
+      }
+
+      <div class="mb-3">
+        <label for="username" class="form-label">Usuário</label>
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="bi bi-person"></i>
+          </span>
+          <input type="text" class="form-control" id="username" name="username" [(ngModel)]="credentials.username"
+            required placeholder="Digite seu usuário" [disabled]="isLoading" />
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Senha</label>
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="bi bi-lock"></i>
+          </span>
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="credentials.password"
+            required placeholder="Digite sua senha" [disabled]="isLoading" />
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100" [disabled]="!loginForm.form.valid || isLoading">
+        @if (!isLoading) {
+        <span>
+          <i class="bi bi-box-arrow-in-right me-2"></i>
+          Entrar
+        </span>
+        } @else {
+        <span>
+          <span class="spinner-border spinner-border-sm me-2"></span>
+          Entrando...
+        </span>
+        }
+      </button>
+    </form>
+
+    <div class="mt-4 text-center text-muted small">
+      <p class="mb-0">Credenciais padrão:</p>
+      <p class="mb-0">Usuário: <strong>admin</strong> | Senha: <strong>admin123</strong></p>
+    </div>
+  </div>
+</div>
