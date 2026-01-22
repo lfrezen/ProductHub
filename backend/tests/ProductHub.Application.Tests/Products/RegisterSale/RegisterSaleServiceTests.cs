@@ -11,13 +11,13 @@ public class RegisterSaleServiceTests
 {
     private readonly Mock<IProductRepository> _productRepositoryMock;
     private readonly Mock<ISaleRepository> _saleRepositoryMock;
-    private readonly RegisterSaleService _sut;
+    private readonly RegisterSaleService _registerSaleService;
 
     public RegisterSaleServiceTests()
     {
         _productRepositoryMock = new Mock<IProductRepository>();
         _saleRepositoryMock = new Mock<ISaleRepository>();
-        _sut = new RegisterSaleService(
+        _registerSaleService = new RegisterSaleService(
             _productRepositoryMock.Object,
             _saleRepositoryMock.Object);
     }
@@ -36,7 +36,7 @@ public class RegisterSaleServiceTests
             .ReturnsAsync(product);
 
         // Act
-        await _sut.ExecuteAsync(command, cancellationToken);
+        await _registerSaleService.ExecuteAsync(command, cancellationToken);
 
         // Assert
         product.Quantity.Should().Be(40);
@@ -67,7 +67,7 @@ public class RegisterSaleServiceTests
             .ReturnsAsync((Product?)null);
 
         // Act
-        Func<Task> act = async () => await _sut.ExecuteAsync(command, cancellationToken);
+        Func<Task> act = async () => await _registerSaleService.ExecuteAsync(command, cancellationToken);
 
         // Assert
         await act.Should().ThrowAsync<KeyNotFoundException>()
@@ -88,7 +88,7 @@ public class RegisterSaleServiceTests
             .ReturnsAsync(product);
 
         // Act
-        Func<Task> act = async () => await _sut.ExecuteAsync(command, cancellationToken);
+        Func<Task> act = async () => await _registerSaleService.ExecuteAsync(command, cancellationToken);
 
         // Assert
         await act.Should().ThrowAsync<InvalidOperationException>()

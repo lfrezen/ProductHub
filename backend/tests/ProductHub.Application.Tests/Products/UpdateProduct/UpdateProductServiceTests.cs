@@ -9,12 +9,12 @@ namespace ProductHub.Application.Tests.Products.UpdateProduct;
 public class UpdateProductServiceTests
 {
     private readonly Mock<IProductRepository> _productRepositoryMock;
-    private readonly UpdateProductService _sut;
+    private readonly UpdateProductService _updateProductService;
 
     public UpdateProductServiceTests()
     {
         _productRepositoryMock = new Mock<IProductRepository>();
-        _sut = new UpdateProductService(_productRepositoryMock.Object);
+        _updateProductService = new UpdateProductService(_productRepositoryMock.Object);
     }
 
     [Fact]
@@ -31,7 +31,7 @@ public class UpdateProductServiceTests
             .ReturnsAsync(existingProduct);
 
         // Act
-        await _sut.ExecuteAsync(command, cancellationToken);
+        await _updateProductService.ExecuteAsync(command, cancellationToken);
 
         // Assert
         existingProduct.Name.Should().Be("Arroz Integral");
@@ -56,7 +56,7 @@ public class UpdateProductServiceTests
             .ReturnsAsync((Product?)null);
 
         // Act
-        Func<Task> act = async () => await _sut.ExecuteAsync(command, cancellationToken);
+        Func<Task> act = async () => await _updateProductService.ExecuteAsync(command, cancellationToken);
 
         // Assert
         await act.Should().ThrowAsync<KeyNotFoundException>()

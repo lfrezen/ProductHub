@@ -9,7 +9,7 @@ namespace ProductHub.Infrastructure.Tests.Auth;
 public class TokenServiceTests
 {
     private readonly IConfiguration _configuration;
-    private readonly TokenService _sut;
+    private readonly TokenService _tokenService;
 
     public TokenServiceTests()
     {
@@ -25,7 +25,7 @@ public class TokenServiceTests
             .AddInMemoryCollection(configValues!)
             .Build();
 
-        _sut = new TokenService(_configuration);
+        _tokenService = new TokenService(_configuration);
     }
 
     [Fact]
@@ -35,7 +35,7 @@ public class TokenServiceTests
         var user = new User { Id = Guid.NewGuid(), Username = "testuser" };
 
         // Act
-        var token = _sut.Generate(user);
+        var token = _tokenService.Generate(user);
 
         // Assert
         token.Should().NotBeNullOrEmpty();
@@ -48,7 +48,7 @@ public class TokenServiceTests
         var user = new User { Id = Guid.NewGuid(), Username = "testuser" };
 
         // Act
-        var token = _sut.Generate(user);
+        var token = _tokenService.Generate(user);
 
         // Assert
         var handler = new JwtSecurityTokenHandler();
@@ -66,7 +66,7 @@ public class TokenServiceTests
         var user = new User { Id = userId, Username = "testuser" };
 
         // Act
-        var token = _sut.Generate(user);
+        var token = _tokenService.Generate(user);
 
         // Assert
         var handler = new JwtSecurityTokenHandler();
@@ -83,7 +83,7 @@ public class TokenServiceTests
         var user = new User { Id = Guid.NewGuid(), Username = "testuser" };
 
         // Act
-        var token = _sut.Generate(user);
+        var token = _tokenService.Generate(user);
 
         // Assert
         var handler = new JwtSecurityTokenHandler();
@@ -100,7 +100,7 @@ public class TokenServiceTests
         var user = new User { Id = Guid.NewGuid(), Username = "testuser" };
 
         // Act
-        var token = _sut.Generate(user);
+        var token = _tokenService.Generate(user);
 
         // Assert
         var handler = new JwtSecurityTokenHandler();

@@ -9,12 +9,12 @@ namespace ProductHub.Application.Tests.Products.CreateProduct;
 public class CreateProductServiceTests
 {
     private readonly Mock<IProductRepository> _productRepositoryMock;
-    private readonly CreateProductService _sut;
+    private readonly CreateProductService _createProductService;
 
     public CreateProductServiceTests()
     {
         _productRepositoryMock = new Mock<IProductRepository>();
-        _sut = new CreateProductService(_productRepositoryMock.Object);
+        _createProductService = new CreateProductService(_productRepositoryMock.Object);
     }
 
     [Fact]
@@ -25,7 +25,7 @@ public class CreateProductServiceTests
         var cancellationToken = CancellationToken.None;
 
         // Act
-        var result = await _sut.ExecuteAsync(command, cancellationToken);
+        var result = await _createProductService.ExecuteAsync(command, cancellationToken);
 
         // Assert
         result.Should().NotBeEmpty();
@@ -46,7 +46,7 @@ public class CreateProductServiceTests
         var cancellationToken = CancellationToken.None;
 
         // Act
-        var result = await _sut.ExecuteAsync(command, cancellationToken);
+        var result = await _createProductService.ExecuteAsync(command, cancellationToken);
 
         // Assert
         result.Should().NotBeEmpty();
